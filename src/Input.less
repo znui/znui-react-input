@@ -1,0 +1,35 @@
+@import "./zr.vars.less";
+
+.zr-status(@color: @zr-base-color){
+    border-color: @color;
+    color: @color;
+}
+
+.zr-input {
+    overflow: hidden;
+    margin: 0px;
+    box-sizing: border-box;
+    -webkit-transition: all ease-in-out 0.15s;
+    -o-transition: all ease-in-out 0.15s;
+    transition: all ease-in-out 0.15s;
+    resize: none;
+    background-color: #FFF !important;
+    outline: none;
+    padding: 2px 5px;
+    font-size: 14px;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    border: 1px solid #d9d9d9;
+    height: 24px;
+    line-height: 24px;
+    color: #4c4c4c;
+    &:hover{
+        border-color:#40a9ff;
+    }
+    &:focus{
+        border-color:#40a9ff;
+        border-right-width:1px !important;
+        outline:0;
+        -webkit-box-shadow:0 0 0 2px rgba(24,144,255,0.2);box-shadow:0 0 0 2px rgba(24,144,255,0.2);
+    }
+}
