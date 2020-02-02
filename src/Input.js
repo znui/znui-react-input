@@ -1,8 +1,8 @@
 var React = znui.React || require('react');
 var ReactDOM = znui.ReactDOM || require('react-dom');
 
-module.exports = znui.react.createClass({
-	displayName:'Input',
+module.exports = React.createClass({
+	displayName:'ZRInput',
 	getDefaultProps: function (){
 		return {
 			attrs: {},
@@ -12,35 +12,49 @@ module.exports = znui.react.createClass({
 		};
 	},
 	getValue: function () {
-		var _value = ReactDOM.findDOMNode(this).value;
+		return this.__parseGetValue(ReactDOM.findDOMNode(this).value);
+	},
+	setValue: function (value) {
+		return ReactDOM.findDOMNode(this).value = this.__parseSetValue(value), this;
+	},
+	__parseGetValue: function (value){
 		if(this.props.attrs && this.props.attrs.type=='number'){
-			_value = +_value;
+			value = +value;
 		}
 
 		if(this.props.attrs && this.props.attrs.type=='date'){
-			if(!_value){
+			if(!value){
 				return null;
 			}
 		}
 
-		return _value;
+		return value;
 	},
-	setValue: function (value) {
+	__parseSetValue: function (value){
 		if(this.props.attrs && this.props.attrs.type=='date' && value){
 			value = value.split(' ')[0];
 		}
-		return ReactDOM.findDOMNode(this).value = value, this;
+
+		return value;
 	},
 	__onChange: function (event){
-		this.props.onChange && this.props.onChange(event.target.value, this, event);
+		event.value = this.__parseGetValue(event.target.value);
+		this.props.onChange && this.props.onChange(event, this);
+	},
+	__onFocus: function (event){
+		event.value = this.__parseGetValue(event.target.value);
+		this.props.onFocus && this.props.onFocus(event, this);
 	},
 	__onBlur: function (event){
-		this.props.onBlur && this.props.onBlur(event.target.value, this, event);
+		event.value = this.__parseGetValue(event.target.value);
+		this.props.onBlur && this.props.onBlur(event, this);
 	},
 	__onKeyUp: function (event){
+		event.value = this.__parseGetValue(event.target.value);
 		if(event.nativeEvent.keyCode==13){
 			this.props.onEnter && this.props.onEnter(event, this);
 		}
+
 		this.props.onKeyUp && this.props.onKeyUp(event, this);
 	},
 	render: function(){
@@ -50,12 +64,14 @@ module.exports = znui.react.createClass({
 				style={this.props.style}
 				{...this.props.attrs}
 				name={this.props.name}
-				type={this.props.attrs.type||'text'}
-				defaultValue={this.props.value}
+				type={this.props.type||'text'}
+				value={this.props.value}
+				defaultValue={this.props.defaultValue||this.props.value}
 				placeholder={this.props.placeholder}
 				disabled={this.props.disabled}
 				readOnly={this.props.readonly}
 				onChange={this.__onChange}
+				onFocus={this.__onFocus}
 				onBlur={this.__onBlur}
 				onKeyUp={this.__onKeyUp} />
 		);

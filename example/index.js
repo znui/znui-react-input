@@ -9,9 +9,9 @@ require('./index.less');
 
 ReactDOM.render(
     <div>
-        <inputs.Input />
-        <inputs.Inputs />
-        <inputs.Textarea />
+        <inputs.Input onChange={(event)=>console.log(event.value)} />
+        <inputs.Input name="name"/>
+        <inputs.Textarea onChange={(event)=>console.log(event.value)} />
     </div>,
     document.getElementById('container'),
 );

@@ -1,7 +1,8 @@
 var React = znui.React || require('react');
 var ReactDOM = znui.ReactDOM || require('react-dom');
-module.exports = znui.react.createClass({
-	displayName:'Inputs',
+
+module.exports = React.createClass({
+	displayName:'ZRInputs',
 	getDefaultProps: function (){
 		return {
 			data: [],
@@ -37,13 +38,18 @@ module.exports = znui.react.createClass({
 			value: value
 		}), this;
 	},
+	__onInputChange: function (event, item, index){
+		event.value = this.getValue();
+		this.props.onChange && this.props.onChange(event, this);
+	},
 	render: function(){
+		var _values = (this.props.value||'').split(this.props.split);
 		return (
 			<div className={znui.react.classname('zr-inputs', this.props.className)} style={this.props.style}>
 				{
 					(this.props.data||[]).map(function (item, index){
-						return <input ref={index} key={index} placeholder={item} type="text" />
-					})
+						return <input value={_values[index]} onChange={(event)=>this.__onInputChange(event, item, index)} ref={index} key={index} placeholder={item} type="text" />
+					}.bind(this))
 				}
 			</div>
 		);

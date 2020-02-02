@@ -1,6 +1,4 @@
-if(!znui){
-    require('znui-react');
-}
+require('znui-react');
 module.exports = {
     'Input': require('./Input.js'),
     'Inputs': require('./Inputs.js'),
