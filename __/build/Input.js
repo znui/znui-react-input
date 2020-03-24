@@ -64,14 +64,13 @@ module.exports = React.createClass({
     this.props.onKeyUp && this.props.onKeyUp(event, this);
   },
   render: function render() {
-    return React.createElement("input", _extends({
+    return /*#__PURE__*/React.createElement("input", _extends({
       className: znui.react.classname('zr-input', this.props.className),
       required: this.props.required,
       style: this.props.style
     }, this.props.attrs, {
       name: this.props.name,
       type: this.props.type || 'text',
-      value: this.props.value,
       defaultValue: this.props.defaultValue || this.props.value,
       placeholder: this.props.placeholder,
       disabled: this.props.disabled,

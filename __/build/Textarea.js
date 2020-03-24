@@ -45,7 +45,7 @@ module.exports = React.createClass({
     this.props.onKeyUp && this.props.onKeyUp(event, this);
   },
   render: function render() {
-    return React.createElement("textarea", _extends({
+    return /*#__PURE__*/React.createElement("textarea", _extends({
       className: znui.react.classname("zr-textarea", this.props.className),
       required: this.props.required,
       style: this.props.style

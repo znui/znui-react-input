@@ -50,13 +50,13 @@ module.exports = React.createClass({
   render: function render() {
     var _values = (this.props.value || '').split(this.props.split);
 
-    return React.createElement("div", {
+    return /*#__PURE__*/React.createElement("div", {
       className: znui.react.classname('zr-inputs', this.props.className),
       style: this.props.style
     }, (this.props.data || []).map(function (item, index) {
       var _this = this;
 
-      return React.createElement("input", {
+      return /*#__PURE__*/React.createElement("input", {
         value: _values[index],
         onChange: function onChange(event) {
           return _this.__onInputChange(event, item, index);

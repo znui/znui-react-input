@@ -1,17 +1,13 @@
-
 require('znui-react');
-var React = require('react');
-var ReactDOM = require('react-dom');
-
-require('../src/index.less');
-var inputs = require('../src/index.js');
+require('../../src/index.less');
 require('./index.less');
+var React = znui.React || require('react');
+var inputs = require('../../src/index');
 
-ReactDOM.render(
-    <div>
+znui.react.createApplication({
+    render: <div className="form-container">
         <inputs.Input onChange={(event)=>console.log(event.value)} />
         <inputs.Input name="name"/>
         <inputs.Textarea onChange={(event)=>console.log(event.value)} />
-    </div>,
-    document.getElementById('container'),
-);
+    </div>
+});

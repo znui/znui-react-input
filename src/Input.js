@@ -65,7 +65,6 @@ module.exports = React.createClass({
 				{...this.props.attrs}
 				name={this.props.name}
 				type={this.props.type||'text'}
-				value={this.props.value}
 				defaultValue={this.props.defaultValue||this.props.value}
 				placeholder={this.props.placeholder}
 				disabled={this.props.disabled}
