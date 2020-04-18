@@ -8,6 +8,8 @@ znui.react.createApplication({
     render: <div className="form-container">
         <inputs.Input onChange={(event)=>console.log(event.value)} />
         <inputs.Input name="name"/>
+        <inputs.SearchInput name="name" options={['name', 'field', 'content']}/>
+        <inputs.TagInput name="name"/>
         <inputs.Textarea onChange={(event)=>console.log(event.value)} />
     </div>
 });
