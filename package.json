@@ -1,6 +1,6 @@
 {
   "name": "znui-react-input",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Web input component.",
   "main": "index.js",
   "scripts": {

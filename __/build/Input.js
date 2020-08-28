@@ -16,6 +16,16 @@ module.exports = React.createClass({
       readonly: null
     };
   },
+  componentDidMount: function componentDidMount() {
+    /*
+    if(this.props.value != null){
+    	if((this.props.type||this.props.attrs.type || '').indexOf('date') == 0){
+    		ReactDOM.findDOMNode(this).value = new Date(this.props.value);
+    	}else{
+    		ReactDOM.findDOMNode(this).value = this.__parseSetValue(this.props.value);
+    	}
+    }*/
+  },
   getValue: function getValue() {
     return this.__parseGetValue(ReactDOM.findDOMNode(this).value);
   },
@@ -36,7 +46,7 @@ module.exports = React.createClass({
     return value;
   },
   __parseSetValue: function __parseSetValue(value) {
-    if (this.props.attrs && this.props.attrs.type == 'date' && value) {
+    if (value && (this.props.attrs && this.props.attrs.type == 'date' || this.props.type == 'date')) {
       value = value.split(' ')[0];
     }
 
@@ -71,7 +81,7 @@ module.exports = React.createClass({
     }, this.props.attrs, {
       name: this.props.name,
       type: this.props.type || 'text',
-      defaultValue: this.props.defaultValue || this.props.value,
+      value: this.props.defaultValue || this.props.value,
       placeholder: this.props.placeholder,
       disabled: this.props.disabled,
       readOnly: this.props.readonly,

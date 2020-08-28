@@ -45,8 +45,7 @@ module.exports = React.createClass({
 				style={this.props.style}
 				{...this.props.attrs}
 				name={this.props.name}
-				value={this.props.value}
-				defaultValue={this.props.defaultValue||this.props.value}
+				value={this.props.value||''}
 				placeholder={this.props.placeholder}
 				disabled={this.props.disabled}
 				readOnly={this.props.readonly}
