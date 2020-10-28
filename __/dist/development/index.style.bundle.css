@@ -80,7 +80,7 @@
   padding: 2px 5px;
   font-size: 14px;
   border: none;
-  border-radius: 3px;
+  border-radius: 0px;
   height: 24px;
   line-height: 24px;
 }
@@ -158,6 +158,13 @@
   margin: 3px;
   font-size: 12px;
   line-height: 10px;
+}
+.zr-tag-input .tag .remove-icon {
+  width: 10px;
+  height: 10px;
+  margin-left: 5px;
+  cursor: pointer;
+  color: #e67777;
 }
 .zr-tag-input .tag-input {
   min-width: 5px;

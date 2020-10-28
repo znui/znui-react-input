@@ -16,16 +16,28 @@ module.exports = React.createClass({
       readonly: null
     };
   },
-  componentDidMount: function componentDidMount() {
-    /*
-    if(this.props.value != null){
-    	if((this.props.type||this.props.attrs.type || '').indexOf('date') == 0){
-    		ReactDOM.findDOMNode(this).value = new Date(this.props.value);
-    	}else{
-    		ReactDOM.findDOMNode(this).value = this.__parseSetValue(this.props.value);
-    	}
-    }*/
+  getInitialState: function getInitialState() {
+    return {
+      value: this.__formatValue(this.props.value || this.props.defaultValue)
+    };
   },
+  __formatValue: function __formatValue(value) {
+    if (value) {
+      switch (this.props.type) {
+        case 'month':
+          return value.substring(0, 7);
+
+        case 'date':
+          return value.substring(0, 10);
+
+        case 'datetime-local':
+          return value.split(' ').join('T').substring(0, 16);
+      }
+    }
+
+    return value || '';
+  },
+  componentDidMount: function componentDidMount() {},
   getValue: function getValue() {
     return this.__parseGetValue(ReactDOM.findDOMNode(this).value);
   },
@@ -33,39 +45,38 @@ module.exports = React.createClass({
     return ReactDOM.findDOMNode(this).value = this.__parseSetValue(value), this;
   },
   __parseGetValue: function __parseGetValue(value) {
-    if (this.props.attrs && this.props.attrs.type == 'number') {
+    if (this.props.type == 'number') {
       value = +value;
     }
 
-    if (this.props.attrs && this.props.attrs.type == 'date') {
+    if (this.props.type == 'date') {
       if (!value) {
         return null;
       }
     }
 
-    return value;
+    return value || '';
   },
   __parseSetValue: function __parseSetValue(value) {
-    if (value && (this.props.attrs && this.props.attrs.type == 'date' || this.props.type == 'date')) {
-      value = value.split(' ')[0];
-    }
-
-    return value;
+    return this.__formatValue(value);
   },
   __onChange: function __onChange(event) {
-    event.value = this.__parseGetValue(event.target.value);
+    event.value = this.__formatValue(event.target.value);
+    this.setState({
+      value: event.target.value
+    });
     this.props.onChange && this.props.onChange(event, this);
   },
   __onFocus: function __onFocus(event) {
-    event.value = this.__parseGetValue(event.target.value);
+    event.value = this.__formatValue(event.target.value);
     this.props.onFocus && this.props.onFocus(event, this);
   },
   __onBlur: function __onBlur(event) {
-    event.value = this.__parseGetValue(event.target.value);
+    event.value = this.__formatValue(event.target.value);
     this.props.onBlur && this.props.onBlur(event, this);
   },
   __onKeyUp: function __onKeyUp(event) {
-    event.value = this.__parseGetValue(event.target.value);
+    event.value = this.__formatValue(event.target.value);
 
     if (event.nativeEvent.keyCode == 13) {
       this.props.onEnter && this.props.onEnter(event, this);
@@ -81,7 +92,7 @@ module.exports = React.createClass({
     }, this.props.attrs, {
       name: this.props.name,
       type: this.props.type || 'text',
-      value: this.props.defaultValue || this.props.value,
+      value: this.state.value || '',
       placeholder: this.props.placeholder,
       disabled: this.props.disabled,
       readOnly: this.props.readonly,

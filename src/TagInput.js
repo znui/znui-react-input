@@ -40,12 +40,28 @@ module.exports = React.createClass({
 			this.props.onChange && this.props.onChange(event, this);
 			return event.target.innerHTML = '';
 		}
+		if(event.nativeEvent.keyCode == 8 && !_value) {
+			event.stopPropagation();
+			this.state.value.pop();
+			this.forceUpdate();
+			event.value = this.state.value;
+			this.props.onEnter && this.props.onEnter(event, this);
+			this.props.onChange && this.props.onChange(event, this);
+			return event.target.innerHTML = '';
+		}
 	},
 	__onRootClick: function (){
 		this.state.input.focus();
 	},
+	__onTagDelete: function (index){
+		this.state.value.splice(index, 1);
+		this.forceUpdate();
+	},
 	__tagRender: function(tag, index){
-		return <span className="tag" key={index}>{tag}</span>;
+		return <span className="tag" key={index}>
+			{tag}
+			<svg onClick={()=>this.__onTagDelete(index)} title="删除元素" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" className="remove-icon svg-inline--fa fa-trash-alt fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
+		</span>;
 	},
 	render: function(){
 		return (

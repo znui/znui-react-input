@@ -65,7 +65,6 @@ module.exports = React.createClass({
 	__onKeyUp: function (event){
 		event.value = this.__parseGetValue(event.target.value);
 		if(event.nativeEvent.keyCode==13){
-			console.log(event.value);
 			this.props.onEnter && this.props.onEnter(event, this);
 		}
 
