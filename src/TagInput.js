@@ -12,7 +12,7 @@ module.exports = React.createClass({
 	},
 	getInitialState: function (){
 		return {
-			value: []
+			value: (this.props.value||'').split(',').filter((value)=>value)
 		};
 	},
 	getValue: function () {
@@ -35,7 +35,7 @@ module.exports = React.createClass({
 			event.stopPropagation();
 			this.state.value.push(_value);
 			this.forceUpdate();
-			event.value = this.state.value;
+			event.value = this.state.value.join(',');
 			this.props.onEnter && this.props.onEnter(event, this);
 			this.props.onChange && this.props.onChange(event, this);
 			return event.target.innerHTML = '';
@@ -44,7 +44,7 @@ module.exports = React.createClass({
 			event.stopPropagation();
 			this.state.value.pop();
 			this.forceUpdate();
-			event.value = this.state.value;
+			event.value = this.state.value.join(',');
 			this.props.onEnter && this.props.onEnter(event, this);
 			this.props.onChange && this.props.onChange(event, this);
 			return event.target.innerHTML = '';

@@ -6,7 +6,8 @@ module.exports = require(_path + 'znui-react/webpack').component.production(func
         externals: {
             "react": "React",
             "react-dom": "ReactDOM",
-            "znui-react": "zr"
+            "znui-react": "zr",
+            "znui-react-loader": 'zrloader'
         }
     };
 });

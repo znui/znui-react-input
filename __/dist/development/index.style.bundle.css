@@ -25,6 +25,10 @@
   -webkit-box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
   box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
 }
+.zr-input[disabled] {
+  color: #d8d8d8 !important;
+  cursor: not-allowed !important;
+}
 .zr-inputs input {
   border-radius: 0px;
 }
@@ -43,6 +47,7 @@
   box-sizing: border-box;
   border-radius: 3px;
   border: 1px solid #d9d9d9;
+  border-bottom: none;
   -webkit-transition: all ease-in-out 0.15s;
   -o-transition: all ease-in-out 0.15s;
   transition: all ease-in-out 0.15s;
@@ -72,7 +77,7 @@
 .zr-search-input .search .search-icon {
   width: 16px;
   height: 16px;
-  margin: 5px;
+  margin: 5px 10px;
 }
 .zr-search-input .search .search-input {
   width: 100%;
@@ -121,6 +126,43 @@
   background-color: #3498db;
   color: #FFF;
 }
+.zr-search-select .zr-search-input {
+  border-radius: 0px;
+}
+.zr-search-select .data-list {
+  background-color: #FFF;
+  color: #5d5959;
+  border: 1px solid #d9d9d9;
+  margin-top: -1px;
+  padding: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.zr-search-select .data-list .data-list-item {
+  cursor: pointer;
+  line-height: 20px;
+  padding: 5px;
+  margin: 3px;
+  background-color: #f1f0f0;
+}
+.zr-search-select .data-list .data-list-item.actived {
+  background-color: #1a73e8 !important;
+  color: #FFF;
+}
+.zr-search-select .data-list .data-list-item:hover {
+  opacity: 0.6;
+}
+.zr-search-select .data-list .data-list-item:active {
+  z-index: 100;
+  border-color: #cdcecf;
+  border-right-width: 1px !important;
+  -webkit-box-shadow: 0 0 0 2px rgba(49, 47, 47, 0.2);
+  box-shadow: 0 0 0 2px rgba(49, 47, 47, 0.2);
+}
+.zr-search-select .data-list .data-list-item:last-child {
+  border-bottom: 0px;
+}
 .zr-tag-input {
   display: flex;
   flex-direction: row;
@@ -139,7 +181,9 @@
   border-radius: 2px;
   border: 1px solid #d9d9d9;
   line-height: 24px;
+  min-height: 38px;
   color: #4c4c4c;
+  cursor: text;
 }
 .zr-tag-input:hover {
   border-color: #40a9ff;
@@ -152,7 +196,7 @@
   box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
 }
 .zr-tag-input .tag {
-  background-color: #f5f5f5;
+  background-color: #e4e4e4;
   border-radius: 3px;
   padding: 6px;
   margin: 3px;

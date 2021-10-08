@@ -1,6 +1,6 @@
 {
   "name": "znui-react-input",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Web input component.",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,7 @@
   "license": "MIT",
   "dependencies": {
     "znui-react": "latest",
-    "znui-react-popup": "latest"
+    "znui-react-popup": "latest",
+    "znui-react-loader": "latest"
   }
 }
