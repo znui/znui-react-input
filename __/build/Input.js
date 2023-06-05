@@ -1,5 +1,9 @@
 "use strict";
 
+var _React$createClass;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 var React = znui.React || require('react');
@@ -109,7 +113,7 @@ var ID = {
     return false;
   }
 };
-module.exports = React.createClass({
+module.exports = React.createClass((_React$createClass = {
   displayName: 'ZRInput',
   getDefaultProps: function getDefaultProps() {
     return {
@@ -127,8 +131,16 @@ module.exports = React.createClass({
     }
 
     return {
+      style: {},
       value: this.__formatValue(_value)
     };
+  },
+  componentWillUpdate: function componentWillUpdate(props, state) {
+    if (this.props.syncDefaultValue && props.defaultValue != state.value) {
+      this.setState({
+        value: props.defaultValue
+      });
+    }
   },
   __formatValue: function __formatValue(value) {
     if (value) {
@@ -193,84 +205,92 @@ module.exports = React.createClass({
 
     return true;
   },
-  componentDidMount: function componentDidMount() {},
-  getValue: function getValue() {
-    return this.__parseGetValue(ReactDOM.findDOMNode(this).value);
-  },
-  setValue: function setValue(value) {
-    return ReactDOM.findDOMNode(this).value = this.__parseSetValue(value), this;
-  },
-  __parseGetValue: function __parseGetValue(value) {
-    if (this.props.type == 'number') {
-      value = +value;
-    }
-
-    if (this.props.type == 'date') {
-      if (!value) {
-        return null;
-      }
-    }
-
-    return value || '';
-  },
-  __parseSetValue: function __parseSetValue(value) {
-    return this.__formatValue(value);
-  },
-  __onChange: function __onChange(event) {
+  componentDidMount: function componentDidMount() {}
+}, _defineProperty(_React$createClass, "componentWillUpdate", function componentWillUpdate(newProps, newState, newContext) {
+  if (newProps.value != newState.value) {
     this.setState({
-      value: event.target.value
+      value: newProps.value
     });
+  }
+}), _defineProperty(_React$createClass, "getValue", function getValue() {
+  return this.__parseGetValue(ReactDOM.findDOMNode(this).value);
+}), _defineProperty(_React$createClass, "setValue", function setValue(value) {
+  return ReactDOM.findDOMNode(this).value = this.__parseSetValue(value), this;
+}), _defineProperty(_React$createClass, "__parseGetValue", function __parseGetValue(value) {
+  if (this.props.type == 'number') {
+    value = +value;
+  }
 
-    var _value = this.__formatValue(event.target.value);
+  if (this.props.type == 'date') {
+    if (!value) {
+      return null;
+    }
+  }
 
-    event.value = _value;
-    event.validate = _value;
-    this.props.onChange && this.props.onChange(event, this);
-  },
-  __onFocus: function __onFocus(event) {
-    var _value = this.__formatValue(event.target.value);
+  return value || '';
+}), _defineProperty(_React$createClass, "__parseSetValue", function __parseSetValue(value) {
+  return this.__formatValue(value);
+}), _defineProperty(_React$createClass, "__onChange", function __onChange(event) {
+  this.setState({
+    value: event.target.value
+  });
 
-    event.value = _value;
-    event.validate = _value;
-    this.props.onFocus && this.props.onFocus(event, this);
-  },
-  __onBlur: function __onBlur(event) {
-    var _value = this.__formatValue(event.target.value);
+  var _value = this.__formatValue(event.target.value);
 
-    event.value = _value;
-    event.validate = _value;
-    this.props.onBlur && this.props.onBlur(event, this);
-  },
-  __onKeyUp: function __onKeyUp(event) {
-    var _value = this.__formatValue(event.target.value);
-
-    event.value = _value;
-    event.validate = _value;
-
-    if (event.nativeEvent.keyCode == 13) {
-      this.props.onEnter && this.props.onEnter(event, this);
+  if (this.props.attrs) {
+    if (this.props.attrs.max && _value > this.props.attrs.max) {
+      _value = this.props.attrs.max;
     }
 
-    this.props.onKeyUp && this.props.onKeyUp(event, this);
-  },
-  render: function render() {
-    var _type = TYPES[this.props.type] || this.props.type || 'text';
-
-    return /*#__PURE__*/React.createElement("input", _extends({
-      className: znui.react.classname('zr-input', this.props.className),
-      required: this.props.required,
-      style: this.props.style
-    }, this.props.attrs, {
-      name: this.props.name,
-      type: _type,
-      value: this.state.value,
-      placeholder: this.props.placeholder,
-      disabled: this.props.disabled,
-      readOnly: this.props.readonly,
-      onChange: this.__onChange,
-      onFocus: this.__onFocus,
-      onBlur: this.__onBlur,
-      onKeyUp: this.__onKeyUp
-    }));
+    if (this.props.attrs.min != null && _value < this.props.attrs.min) {
+      _value = this.props.attrs.min;
+    }
   }
-});
+
+  event.input = this;
+  event.value = _value;
+  event.validate = _value;
+  this.props.onChange && this.props.onChange(event, this);
+}), _defineProperty(_React$createClass, "__onFocus", function __onFocus(event) {
+  var _value = this.__formatValue(event.target.value);
+
+  event.value = _value;
+  event.validate = _value;
+  this.props.onFocus && this.props.onFocus(event, this);
+}), _defineProperty(_React$createClass, "__onBlur", function __onBlur(event) {
+  var _value = this.__formatValue(event.target.value);
+
+  event.value = _value;
+  event.validate = _value;
+  this.props.onBlur && this.props.onBlur(event, this);
+}), _defineProperty(_React$createClass, "__onKeyUp", function __onKeyUp(event) {
+  var _value = this.__formatValue(event.target.value);
+
+  event.value = _value;
+  event.validate = _value;
+
+  if (event.nativeEvent.keyCode == 13) {
+    this.props.onEnter && this.props.onEnter(event, this);
+  }
+
+  this.props.onKeyUp && this.props.onKeyUp(event, this);
+}), _defineProperty(_React$createClass, "render", function render() {
+  var _type = TYPES[this.props.type] || this.props.type || 'text';
+
+  return /*#__PURE__*/React.createElement("input", _extends({
+    className: znui.react.classname('zr-input', this.props.className),
+    required: this.props.required,
+    style: znui.react.style(this.props.style, this.state.style)
+  }, this.props.attrs, {
+    name: this.props.name,
+    type: _type,
+    value: this.state.value,
+    placeholder: this.props.placeholder,
+    disabled: this.props.disabled,
+    readOnly: this.props.readonly,
+    onChange: this.__onChange,
+    onFocus: this.__onFocus,
+    onBlur: this.__onBlur,
+    onKeyUp: this.__onKeyUp
+  }));
+}), _React$createClass));

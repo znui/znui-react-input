@@ -76,8 +76,16 @@ module.exports = React.createClass({
 		}
 
 		return {
+			style: {},
 			value: this.__formatValue(_value)
 		};
+	},
+	componentWillUpdate: function (props,state){
+		if(this.props.syncDefaultValue && props.defaultValue != state.value){
+			this.setState({
+				value: props.defaultValue
+			});
+		}
 	},
 	__formatValue: function (value){
 		if(value){
@@ -138,6 +146,11 @@ module.exports = React.createClass({
 	componentDidMount: function (){
 
 	},
+	componentWillUpdate: function (newProps,newState,newContext){
+		if(newProps.value != newState.value){
+			this.setState({ value: newProps.value });
+		}
+	},
 	getValue: function () {
 		return this.__parseGetValue(ReactDOM.findDOMNode(this).value);
 	},
@@ -165,6 +178,15 @@ module.exports = React.createClass({
 			value: event.target.value
 		});
 		var _value = this.__formatValue(event.target.value);
+		if(this.props.attrs) {
+			if(this.props.attrs.max && _value > this.props.attrs.max) {
+				_value = this.props.attrs.max;
+			}
+			if(this.props.attrs.min != null && _value < this.props.attrs.min) {
+				_value = this.props.attrs.min;
+			}
+		}
+		event.input = this;
 		event.value = _value;
 		event.validate = _value;
 
@@ -199,7 +221,7 @@ module.exports = React.createClass({
 		return (
 			<input className={znui.react.classname('zr-input', this.props.className)}
 				required={this.props.required}
-				style={this.props.style}
+				style={znui.react.style(this.props.style, this.state.style)}
 				{...this.props.attrs}
 				name={this.props.name}
 				type={_type}
