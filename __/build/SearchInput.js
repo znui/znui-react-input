@@ -1,11 +1,8 @@
 "use strict";
 
 var React = znui.React || require('react');
-
 var ReactDOM = znui.ReactDOM || require('react-dom');
-
 var popup = require('znui-react-popup');
-
 module.exports = React.createClass({
   displayName: 'ZRSearchInput',
   getDefaultProps: function getDefaultProps() {
@@ -30,20 +27,17 @@ module.exports = React.createClass({
     if (this.props.attrs && this.props.attrs.type == 'number') {
       value = +value;
     }
-
     if (this.props.attrs && this.props.attrs.type == 'date') {
       if (!value) {
         return null;
       }
     }
-
     return value;
   },
   __parseSetValue: function __parseSetValue(value) {
     if (this.props.attrs && this.props.attrs.type == 'date' && value) {
       value = value.split(' ')[0];
     }
-
     return value;
   },
   __onChange: function __onChange(event) {
@@ -66,11 +60,9 @@ module.exports = React.createClass({
   },
   __onKeyUp: function __onKeyUp(event) {
     event.value = this.__parseGetValue(event.target.value);
-
     if (event.nativeEvent.keyCode == 13) {
       this.props.onEnter && this.props.onEnter(event, this);
     }
-
     this.props.onKeyUp && this.props.onKeyUp(event, this);
   },
   __onOptItemClick: function __onOptItemClick(opt, index) {
@@ -80,7 +72,6 @@ module.exports = React.createClass({
   },
   __optItemRender: function __optItemRender(item, index) {
     var _this = this;
-
     return /*#__PURE__*/React.createElement("li", {
       onClick: function onClick() {
         return _this.__onOptItemClick(item, index);

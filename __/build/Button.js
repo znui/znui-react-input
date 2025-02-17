@@ -1,9 +1,7 @@
 "use strict";
 
 var React = znui.React || require('react');
-
 var Loading = require('./Loading');
-
 module.exports = React.createClass({
   displayName: "exports",
   getInitialState: function getInitialState() {
@@ -17,11 +15,9 @@ module.exports = React.createClass({
     if (this.__disabled()) {
       return;
     }
-
     if (this.props.hash) {
       window.location.hash = "#" + this.props.hash;
     }
-
     this.props.onClick && this.props.onClick(e, this);
   },
   loading: function loading(value, loadingText) {

@@ -1,9 +1,7 @@
 "use strict";
 
 var React = znui.React || require('react');
-
 var ReactDOM = znui.ReactDOM || require('react-dom');
-
 module.exports = React.createClass({
   displayName: 'ZRTagInput',
   getDefaultProps: function getDefaultProps() {
@@ -28,17 +26,14 @@ module.exports = React.createClass({
   },
   __onKeyUp: function __onKeyUp(event) {
     var _value = event.target.innerText;
-
     if (event.nativeEvent.keyCode == 13 && _value) {
       event.stopPropagation();
       return event.target.innerHTML = '';
     }
-
     this.props.onKeyUp && this.props.onKeyUp(event, this);
   },
   __onKeyDown: function __onKeyDown(event) {
     var _value = event.target.innerText;
-
     if (event.nativeEvent.keyCode == 13 && _value) {
       event.stopPropagation();
       this.state.value.push(_value);
@@ -48,7 +43,6 @@ module.exports = React.createClass({
       this.props.onChange && this.props.onChange(event, this);
       return event.target.innerHTML = '';
     }
-
     if (event.nativeEvent.keyCode == 8 && !_value) {
       event.stopPropagation();
       this.state.value.pop();
@@ -68,7 +62,6 @@ module.exports = React.createClass({
   },
   __tagRender: function __tagRender(tag, index) {
     var _this = this;
-
     return /*#__PURE__*/React.createElement("span", {
       className: "tag",
       key: index
@@ -92,7 +85,6 @@ module.exports = React.createClass({
   },
   render: function render() {
     var _this2 = this;
-
     return /*#__PURE__*/React.createElement("div", {
       onClick: this.__onRootClick,
       className: znui.react.classname('zr-tag-input', this.props.className)

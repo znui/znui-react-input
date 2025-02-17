@@ -1,11 +1,8 @@
 "use strict";
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 var React = znui.React || require('react');
-
 var Timer = require('./Timer');
-
 module.exports = React.createClass({
   displayName: "exports",
   getInitialState: function getInitialState() {
@@ -16,7 +13,6 @@ module.exports = React.createClass({
   },
   __onChange: function __onChange(e) {
     var _this = this;
-
     var _value = e.target.value;
     e.value = _value;
     this.setState({
@@ -35,7 +31,6 @@ module.exports = React.createClass({
   },
   __clickSendBtn: function __clickSendBtn() {
     var _this2 = this;
-
     if (this.props.phone) {
       zn.data.post(this.props.api, {
         data: {
@@ -46,7 +41,6 @@ module.exports = React.createClass({
           _this2.setState({
             seconds: 120
           });
-
           zr.popup.notifier.success("验证码发送成功，请注意查收。");
         }
       });
@@ -54,7 +48,6 @@ module.exports = React.createClass({
       if (this._input) {
         this._input.focus();
       }
-
       this.setState({
         errorMessage: '请先填写手机号'
       });
@@ -62,7 +55,6 @@ module.exports = React.createClass({
   },
   render: function render() {
     var _this3 = this;
-
     return /*#__PURE__*/React.createElement("div", {
       className: 'zr-input-phone-code ' + (this.props.className || '')
     }, /*#__PURE__*/React.createElement("input", _extends({

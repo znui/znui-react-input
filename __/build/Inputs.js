@@ -1,9 +1,7 @@
 "use strict";
 
 var React = znui.React || require('react');
-
 var ReactDOM = znui.ReactDOM || require('react-dom');
-
 module.exports = React.createClass({
   displayName: 'ZRInputs',
   getDefaultProps: function getDefaultProps() {
@@ -19,21 +17,17 @@ module.exports = React.createClass({
   },
   getValue: function getValue() {
     var _values = [],
-        _value = null;
-
+      _value = null;
     for (var key in this.refs) {
       _value = ReactDOM.findDOMNode(this.refs[key]).value;
-
       if (_value) {
         _values.push(_value);
       }
     }
-
     return _values.join(this.props.split);
   },
   setValue: function setValue(value) {
     var _values = value.split(this.props.split);
-
     Object.keys(this.refs).forEach(function (key, index) {
       if (_values[index]) {
         ReactDOM.findDOMNode(this.refs[key]).value = _values[index];
@@ -49,13 +43,11 @@ module.exports = React.createClass({
   },
   render: function render() {
     var _values = (this.props.value || '').split(this.props.split);
-
     return /*#__PURE__*/React.createElement("div", {
       className: znui.react.classname('zr-inputs', this.props.className),
       style: this.props.style
     }, (this.props.data || []).map(function (item, index) {
       var _this = this;
-
       return /*#__PURE__*/React.createElement("input", {
         value: _values[index],
         onChange: function onChange(event) {

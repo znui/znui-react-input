@@ -1,9 +1,7 @@
 "use strict";
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 var React = znui.React || require('react');
-
 module.exports = React.createClass({
   displayName: "exports",
   getInitialState: function getInitialState() {
@@ -16,21 +14,17 @@ module.exports = React.createClass({
   },
   __onChange: function __onChange(e) {
     var _this = this;
-
     var _value = e.target.value,
-        _equal = null;
+      _equal = null;
     e.value = _value;
-
     if (this.props.password) {
       if (this.props.password == _value) {
         _equal = true;
       } else {
         _equal = false;
       }
-
       e.equal = _equal;
     }
-
     this.setState({
       value: _value,
       equal: _equal
@@ -44,7 +38,6 @@ module.exports = React.createClass({
     } else {
       this.state.type = 'password';
     }
-
     this.forceUpdate();
   },
   __errorMsg: function __errorMsg() {

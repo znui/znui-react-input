@@ -1,15 +1,12 @@
 "use strict";
 
-var _React$createClass;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 var React = znui.React || require('react');
-
 var ReactDOM = znui.ReactDOM || require('react-dom');
-
 var TYPES = {
   email: 'email',
   tel: 'tel',
@@ -21,35 +18,28 @@ var ID = {
     var factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
     var parity = [1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2];
     var code = val.substring(17);
-
     if (p.test(val)) {
       var sum = 0;
-
       for (var i = 0; i < 17; i++) {
         sum += val[i] * factor[i];
       }
-
       if (parity[sum % 11] == code.toUpperCase()) {
         return true;
       }
     }
-
     return false;
   },
   checkDate: function checkDate(val) {
     var pattern = /^(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)$/;
-
     if (pattern.test(val)) {
       var year = val.substring(0, 4);
       var month = val.substring(4, 6);
       var date = val.substring(6, 8);
       var date2 = new Date(year + "-" + month + "-" + date);
-
       if (date2 && date2.getMonth() == parseInt(month) - 1) {
         return true;
       }
     }
-
     return false;
   },
   checkProv: function checkProv(val) {
@@ -90,30 +80,26 @@ var ID = {
       81: "香港",
       82: "澳门"
     };
-
     if (pattern.test(val)) {
       if (provs[val]) {
         return true;
       }
     }
-
     return false;
   },
   checkID: function checkID(val) {
     if (val && this.checkCode(val)) {
       var date = val.substring(6, 14);
-
       if (this.checkDate(date)) {
         if (this.checkProv(val.substring(0, 2))) {
           return true;
         }
       }
     }
-
     return false;
   }
 };
-module.exports = React.createClass((_React$createClass = {
+module.exports = React.createClass(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty({
   displayName: 'ZRInput',
   getDefaultProps: function getDefaultProps() {
     return {
@@ -125,11 +111,9 @@ module.exports = React.createClass((_React$createClass = {
   },
   getInitialState: function getInitialState() {
     var _value = this.props.value;
-
     if ((_value === null || _value === undefined) && this.props.defaultValue !== null) {
       _value = this.props.defaultValue;
     }
-
     return {
       style: {},
       value: this.__formatValue(_value)
@@ -148,32 +132,26 @@ module.exports = React.createClass((_React$createClass = {
         case 'month':
           value = value.substring(0, 7);
           break;
-
         case 'date':
           value = value.substring(0, 10);
           break;
-
         case 'datetime-local':
           value = value.split(' ').join('T').substring(0, 16);
           break;
       }
     }
-
     if (this.props.required) {
       if (!this.validate(value)) {
         return '';
       }
     }
-
     if (value === null) {
       return '';
     }
-
     return value;
   },
   validate: function validate(value) {
     var _validate = this.props.validate || this.props.type;
-
     if (typeof _validate == 'function') {
       if (_validate(value, this) === false) {
         return false;
@@ -184,99 +162,81 @@ module.exports = React.createClass((_React$createClass = {
           if (!/^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/.test(value)) {
             return false;
           }
-
           break;
-
         case 'tel':
           if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(value)) {
             return false;
           }
-
           break;
-
         case 'id':
           if (!ID.checkID(value)) {
             return false;
           }
-
           break;
       }
     }
-
     return true;
   },
   componentDidMount: function componentDidMount() {}
-}, _defineProperty(_React$createClass, "componentWillUpdate", function componentWillUpdate(newProps, newState, newContext) {
+}, "componentWillUpdate", function componentWillUpdate(newProps, newState, newContext) {
   if (newProps.value != newState.value) {
     this.setState({
       value: newProps.value
     });
   }
-}), _defineProperty(_React$createClass, "getValue", function getValue() {
+}), "getValue", function getValue() {
   return this.__parseGetValue(ReactDOM.findDOMNode(this).value);
-}), _defineProperty(_React$createClass, "setValue", function setValue(value) {
+}), "setValue", function setValue(value) {
   return ReactDOM.findDOMNode(this).value = this.__parseSetValue(value), this;
-}), _defineProperty(_React$createClass, "__parseGetValue", function __parseGetValue(value) {
+}), "__parseGetValue", function __parseGetValue(value) {
   if (this.props.type == 'number') {
     value = +value;
   }
-
   if (this.props.type == 'date') {
     if (!value) {
       return null;
     }
   }
-
   return value || '';
-}), _defineProperty(_React$createClass, "__parseSetValue", function __parseSetValue(value) {
+}), "__parseSetValue", function __parseSetValue(value) {
   return this.__formatValue(value);
-}), _defineProperty(_React$createClass, "__onChange", function __onChange(event) {
+}), "__onChange", function __onChange(event) {
   this.setState({
     value: event.target.value
   });
-
   var _value = this.__formatValue(event.target.value);
-
   if (this.props.attrs) {
     if (this.props.attrs.max && _value > this.props.attrs.max) {
       _value = this.props.attrs.max;
     }
-
     if (this.props.attrs.min != null && _value < this.props.attrs.min) {
       _value = this.props.attrs.min;
     }
   }
-
   event.input = this;
   event.value = _value;
   event.validate = _value;
   this.props.onChange && this.props.onChange(event, this);
-}), _defineProperty(_React$createClass, "__onFocus", function __onFocus(event) {
+}), "__onFocus", function __onFocus(event) {
   var _value = this.__formatValue(event.target.value);
-
   event.value = _value;
   event.validate = _value;
   this.props.onFocus && this.props.onFocus(event, this);
-}), _defineProperty(_React$createClass, "__onBlur", function __onBlur(event) {
+}), "__onBlur", function __onBlur(event) {
   var _value = this.__formatValue(event.target.value);
-
   event.value = _value;
   event.validate = _value;
   this.props.onBlur && this.props.onBlur(event, this);
-}), _defineProperty(_React$createClass, "__onKeyUp", function __onKeyUp(event) {
+}), "__onKeyUp", function __onKeyUp(event) {
   var _value = this.__formatValue(event.target.value);
-
   event.value = _value;
   event.validate = _value;
-
   if (event.nativeEvent.keyCode == 13) {
     this.props.onEnter && this.props.onEnter(event, this);
   }
-
   this.props.onKeyUp && this.props.onKeyUp(event, this);
-}), _defineProperty(_React$createClass, "render", function render() {
+}), "render", function render() {
   var _type = TYPES[this.props.type] || this.props.type || 'text';
-
   return /*#__PURE__*/React.createElement("input", _extends({
     className: znui.react.classname('zr-input', this.props.className),
     required: this.props.required,
@@ -293,4 +253,4 @@ module.exports = React.createClass((_React$createClass = {
     onBlur: this.__onBlur,
     onKeyUp: this.__onKeyUp
   }));
-}), _React$createClass));
+}));

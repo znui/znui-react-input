@@ -1,7 +1,6 @@
 "use strict";
 
 var React = znui.React || require('react');
-
 module.exports = React.createClass({
   displayName: "exports",
   getInitialState: function getInitialState() {
@@ -11,7 +10,6 @@ module.exports = React.createClass({
   },
   componentDidMount: function componentDidMount() {
     var _this = this;
-
     this.state.timer = setInterval(function () {
       if (_this.state.seconds) {
         _this.setState({
@@ -20,11 +18,9 @@ module.exports = React.createClass({
       } else {
         window.clearInterval(_this.state.timer);
         _this.state.timer = null;
-
         _this.setState({
           second: 0
         });
-
         _this.props.onEnd && _this.props.onEnd();
       }
     }, 1000);

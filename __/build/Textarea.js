@@ -1,11 +1,8 @@
 "use strict";
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 var React = znui.React || require('react');
-
 var ReactDOM = znui.ReactDOM || require('react-dom');
-
 module.exports = React.createClass({
   displayName: 'ZRTextarea',
   getDefaultProps: function getDefaultProps() {
@@ -21,8 +18,8 @@ module.exports = React.createClass({
   },
   getValue: function getValue() {
     //placeholder="ex.&#13;&#10;test1@test.com&#13;&#10;test2@test.com&#13;&#10;..."
-    var _value = ReactDOM.findDOMNode(this).value; //console.log(_value.replace(/\u000A/g, '\n'));
-
+    var _value = ReactDOM.findDOMNode(this).value;
+    //console.log(_value.replace(/\u000A/g, '\n'));
     return _value;
   },
   setValue: function setValue(value) {
@@ -50,11 +47,9 @@ module.exports = React.createClass({
     event.value = event.target.value;
     this.state.value = event.target.value;
     this.forceUpdate();
-
     if (event.nativeEvent.keyCode == 13) {
       this.props.onEnter && this.props.onEnter(event, this);
     }
-
     this.props.onKeyUp && this.props.onKeyUp(event, this);
   },
   render: function render() {
